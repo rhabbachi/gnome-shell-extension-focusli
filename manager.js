@@ -15,14 +15,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+const Lang = imports.lang;
 
-const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const GObject = imports.gi.GObject;
 const GLib = imports.gi.GLib;
 const Gio = imports.gi.Gio;
-const Lang = imports.lang;
 
-const SOUNDS_BASE_PATH = Extension.dir.get_child('sounds').get_path();
+const CurrentExtension = imports.misc.extensionUtils.getCurrentExtension();
+const { log, debug } = CurrentExtension.imports.log;
+
+const SOUNDS_BASE_PATH = CurrentExtension.dir.get_child('sounds').get_path();
+const SOUNDS_CACHE_PATH = GLib.build_filenamev([SOUNDS_BASE_PATH, "cached"]);
 const DB_PATH = GLib.build_filenamev([SOUNDS_BASE_PATH, "database.json"]);
 
 const Manager = new Lang.Class({

@@ -15,20 +15,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-var Gst = imports.gi.Gst;
-
-const Animation = imports.ui.animation;
-const Extension = imports.misc.extensionUtils.getCurrentExtension();
-const Gio = imports.gi.Gio;
 const Lang = imports.lang;
+
+const Gst = imports.gi.Gst;
+const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
 const St = imports.gi.St;
+
 const Main = imports.ui.main;
-const Manager = Extension.imports.manager;
+const Animation = imports.ui.animation;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
-const Sound = Extension.imports.sound;
+
+const CurrentExtension = imports.misc.extensionUtils.getCurrentExtension();
+const Manager = CurrentExtension.imports.manager;
+const Sound = CurrentExtension.imports.sound;
 
 Gst.init(null, 0);
 

@@ -16,16 +16,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const Extension = imports.misc.extensionUtils.getCurrentExtension();
+const Lang = imports.lang;
+
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
 const Gst = imports.gi.Gst;
 const GstAudio = imports.gi.GstAudio;
-const Lang = imports.lang;
-const Manager = Extension.imports.manager;
-const Slider = imports.ui.slider;
 const St = imports.gi.St;
+
+const Slider = imports.ui.slider;
+
+const CurrentExtension = imports.misc.extensionUtils.getCurrentExtension();
+const Manager = CurrentExtension.imports.manager;
 
 const DEFAULT_VOLUME = 0.5;
 
