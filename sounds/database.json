@@ -2,12 +2,12 @@
   "sounds": [
     {
       "name": "rain",
-      "uri": "./anoise/rain.mp3",
+      "uri": "file://%extension_path%/sounds/anoise/rain.ogg",
       "icon": "./anoise/rain.png"
     },
     {
       "name": "wind",
-      "uri": "./anoise/wind.mp3",
+      "uri": "./anoise/wind.ogg",
       "icon": "./anoise/wind.png"
     },
     {

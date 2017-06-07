@@ -29,6 +29,7 @@ const Slider = imports.ui.slider;
 
 const CurrentExtension = imports.misc.extensionUtils.getCurrentExtension();
 const Manager = CurrentExtension.imports.manager;
+const { soundCachePath } = CurrentExtension.imports.manager;
 
 const DEFAULT_VOLUME = 0.5;
 
@@ -57,11 +58,23 @@ const SoundBox = new Lang.Class({
             vertical: true,
         });
 
-        let icon = new St.Icon({
+        // Construct the icon.
+        var stIcon = {
             style_class: 'icon',
-            icon_name: sound.icon,
-            reactive: true,
-        });
+            reactive: true
+        };
+
+        var gIcon = Gio.icon_new_for_string(Manager.SOUNDS_BASE_PATH + "/" + sound.icon);
+
+        if (gIcon) {
+            stIcon.gicon = gIcon;
+        }
+        else {
+            // Consider the icon as system provided.
+            stIcon.icon_name = sound.icon;
+        }
+
+        let icon = new St.Icon(stIcon);
         this.add_child(icon);
 
         let slider = new Slider.Slider (DEFAULT_VOLUME);
@@ -141,12 +154,14 @@ const SoundPlayer = new Lang.Class({
     },
 
     getUri: function(sound) {
-        /* FIXME: Extract the real extension of the file instead of hardcoding .mp3. */
-        let path = GLib.build_filenamev([Manager.SOUNDS_BASE_PATH, sound.name + ".mp3"]);
+        // Pull the cached file URI. Fallback to the define URI if no cached
+        // file found.
+        let path = soundCachePath(sound);
         let file = Gio.File.new_for_path(path);
+
         if (file.query_exists(null))
             return file.get_uri();
         else
             return sound.uri;
     },
-})
+});
